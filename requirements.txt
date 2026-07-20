@@ -2,5 +2,8 @@ pandas
 numpy
 joblib
 seaborn
-skilit-learn
+scikit-learn
+matplotlib
+streamlit
+openpyxl
 
