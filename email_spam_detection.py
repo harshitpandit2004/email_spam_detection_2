@@ -10,8 +10,6 @@ st.title("Email Spam Detection")
 
 st.write("Enter the email details below to predict whether the email is Spam or Not Spam.")
 
-
-sender_email = st.text_input("Sender Email")
 email_length = st.number_input("Email Length", min_value=0, value=100)
 num_special_chars = st.number_input("Number of Special Characters", min_value=-1, value=5)
 num_links = st.number_input("Number of Links", min_value=0, value=1)
@@ -21,16 +19,11 @@ if st.button("Predict"):
 
     
     new_email = pd.DataFrame({
-        "Sender_Email": [sender_email],
         "Email_Length": [email_length],
         "Num_Special_Chars": [num_special_chars],
         "Num_Links": [num_links]
     })
 
-    
-    new_email["Sender_Email"] = new_email["Sender_Email"].replace("", np.nan)
-
-    new_email["Sender_Email"] = new_email["Sender_Email"].fillna("unknown@email.com")
 
     if new_email.loc[0, "Email_Length"] <= 0:
         new_email.loc[0, "Email_Length"] = 100
@@ -42,9 +35,6 @@ if st.button("Predict"):
         new_email.loc[0, "Num_Links"] = new_email["Num_Links"].median()
 
     
-    new_email["Sender_Email"] = new_email["Sender_Email"].apply(
-        lambda x: 1 if "@gmail.com" in x else 0
-    )
 
     new_email_scaled = scaler.transform(new_email)
 
